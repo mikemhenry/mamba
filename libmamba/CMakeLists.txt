@@ -511,6 +511,7 @@ macro(libmamba_create_target target_name linkage output_name)
             set(
                 REQUIRED_STATIC_DEPS
                 libcurl.a
+                libpsl.a
                 libssh2.a
                 libgssapi_krb5.a
                 libkrb5.a
@@ -624,6 +625,7 @@ macro(libmamba_create_target target_name linkage output_name)
                 libssl_static.lib
                 libcrypto_static.lib
                 libcurl_a.lib
+                libpsl.a
             )
 
             set(STATIC_DEPS "")
