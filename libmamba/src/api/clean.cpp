@@ -233,14 +233,10 @@ namespace mamba
                      ++it)
                 {
                     const auto& p = *it;
-                    if (p.is_symlink())
-                    {
-                        continue;
-                    }
                     if (p.is_directory())
                     {
                         const bool is_extracted_package = fs::exists(p.path() / "info" / "index.json");
-                        if (is_inside_cache_metadata(p.path(), cache_root) || is_extracted_package)
+                        if (is_extracted_package || is_inside_cache_metadata(p.path(), cache_root))
                         {
                             it.disable_recursion_pending();
                         }
@@ -250,10 +246,9 @@ namespace mamba
                         && (util::ends_with(p.path().string(), ".tar.bz2")
                             || util::ends_with(p.path().string(), ".conda")))
                     {
-                        const auto size = p.file_size();
                         res.push_back(p.path());
-                        rows.push_back({ p.path().filename().string(), get_file_size(size) });
-                        total_size += size;
+                        rows.push_back({ p.path().filename().string(), get_file_size(p.file_size()) });
+                        total_size += p.file_size();
                     }
                 }
                 std::sort(

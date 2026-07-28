@@ -43,9 +43,9 @@ def test_clean_all_removes_nested_package_cache_entries(tmp_home, tmp_root_prefi
     assert not extracted.exists()
 
 
-def test_clean_tarballs_does_not_enter_extracted_packages(tmp_home, tmp_root_prefix):
+def test_clean_tarballs_does_not_enter_extracted_packages(tmp_home, tmp_root_prefix, monkeypatch):
     pkgs_dir = tmp_home / "pkgs"
-    os.environ["CONDA_PKGS_DIRS"] = str(pkgs_dir)
+    monkeypatch.setenv("CONDA_PKGS_DIRS", str(pkgs_dir))
 
     channel_dir = pkgs_dir / "https" / "conda.anaconda.org" / "conda-forge" / "linux-64"
     channel_dir.mkdir(parents=True, exist_ok=True)
