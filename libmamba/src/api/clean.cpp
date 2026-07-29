@@ -242,7 +242,7 @@ namespace mamba
                         }
                         continue;
                     }
-                    if (p.is_regular_file()
+                    if (!p.is_directory()
                         && (util::ends_with(p.path().string(), ".tar.bz2")
                             || util::ends_with(p.path().string(), ".conda")))
                     {

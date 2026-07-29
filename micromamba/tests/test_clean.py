@@ -66,7 +66,7 @@ def test_clean_tarballs_does_not_enter_extracted_packages(tmp_home, tmp_root_pre
     # Creating symlinks may require elevated privileges on Windows, so the
     # regular payload file above provides cross-platform coverage.
     dangling_symlink = None
-    if os.name != "nt":
+    if platform.system() != "Windows":
         dangling_symlink = extracted / "bin" / "amber.conda"
         dangling_symlink.parent.mkdir()
         dangling_symlink.symlink_to("../miniconda/bin/conda")
