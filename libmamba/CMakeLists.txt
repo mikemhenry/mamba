@@ -625,11 +625,8 @@ macro(libmamba_create_target target_name linkage output_name)
                 libssl_static.lib
                 libcrypto_static.lib
                 libcurl_a.lib
+                libpsl.a
             )
-            # libpsl-static is not published for win-arm64 on conda-forge
-            if(NOT CMAKE_SYSTEM_PROCESSOR MATCHES "ARM64|aarch64")
-                list(APPEND REQUIRED_STATIC_DEPS libpsl.a)
-            endif()
 
             set(STATIC_DEPS "")
             foreach(LIB ${REQUIRED_STATIC_DEPS})
